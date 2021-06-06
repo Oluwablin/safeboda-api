@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.5",
         "mvdnbrk/laravel-model-expires": "^1.8",
         "spatie/laravel-http-logger": "^1.7",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "unicodeveloper/laravel-password": "1.0.*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
