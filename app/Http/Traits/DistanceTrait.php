@@ -45,14 +45,13 @@ trait DistanceTrait
             $res = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json', [
                 'query' =>  [
                     'address' => urlencode($address),
-                    'key' => env('GOOGLE_MAPS_API_KEY')
+                    'key' => config ('services.google-map.apikey')
                 ]
             ]);
 
             $response = json_decode($res->getBody());
 
             if ($response->status == 'ZERO_RESULTS') {
-                # code...
                 return null;
             }
 

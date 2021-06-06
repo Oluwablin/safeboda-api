@@ -52,9 +52,9 @@ Route::group(['middleware' => ['HttpLogger'], 'prefix' => 'v1', 'namespace' => '
 
         Route::post('/create', [PromoController::class, 'store']);
 
-        Route::post('/update/{id}', [PromoController::class, 'update']);
+        Route::put('/update/{id}', [PromoController::class, 'update']);
 
-        Route::post('/delete/{id}', [PromoController::class, 'destroy']);
+        Route::delete('/delete/{id}', [PromoController::class, 'destroy']);
 
         Route::get('/active', [PromoController::class, 'active']);
 
