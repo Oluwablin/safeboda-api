@@ -26,6 +26,7 @@ class PromoFactory extends Factory
             'value' => $this->faker->unique()->randomDigit,
             'venue' => $this->faker->text(),
             'radius' => $this->faker->randomDigit,
+            'expires_at' => date($max = 'now', $timezone = null),
         ];
     }
 }
