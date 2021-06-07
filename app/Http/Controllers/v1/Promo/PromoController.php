@@ -127,6 +127,28 @@ class PromoController extends Controller
         return response()->json($response, 201);
     }
 
+    //verify promo
+    public function verify($id, array $origin, array $destination)
+    {
+        $promo_code = Promo::findByUuid($id);
+
+        $venue = $promo_code->venue;
+
+        $venue_coordinates = $this->get_latitude_and_longitude($venue);
+
+        $origin_distance = $this->get_distance($venue_coordinates, $origin);
+
+        $destination_distance = $this->get_distance($venue_coordinates, $destination);
+
+        $radius = $promo_code->radius;
+
+        if ($origin_distance > $radius && $destination_distance > $radius) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Display the specified resource.
      *

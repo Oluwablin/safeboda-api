@@ -11,9 +11,9 @@ class ValidatePromoRequest extends FormRequest
      *
      * @return bool
      */
-    public function true()
+    public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,8 +25,8 @@ class ValidatePromoRequest extends FormRequest
     {
         return [
             'code' => 'required|string|exists:promos,code',
-            'origin' => 'required|string',
-            'destination' => 'required|string'
+            'origin' => 'required',
+            'destination' => 'required'
         ];
     }
 }
