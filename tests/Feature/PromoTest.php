@@ -10,6 +10,8 @@ use App\Models\Promo;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Http\Response;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PromoTest extends TestCase
 {
@@ -84,5 +86,36 @@ class PromoTest extends TestCase
 
         $response = $this->get('/api/v1/promos/', ['Accept' => 'application/json']);
         $response->assertStatus(200);
+    }
+
+    /** @test to see active promos*/
+    public function it_can_see_active_promos()
+    {
+        $this->withoutMiddleware();
+        $user = User::factory()->create();
+        $this->actingAs($user, 'api');
+
+        $promo = Promo::factory()->create();
+
+        $response = $this->get('/api/v1/promos/active', [$promo], ['Accept' => 'application/json']);
+        $response->assertStatus(200);
+        $response->assertExactJson(
+            [
+                'count' => $this->count(),
+                'data' =>[ [
+                    'id'            => $promo->id,
+                    'uuid'          => $promo->uuid,
+                    'code'          => $promo->code,
+                    'value'         => $promo->value,
+                    'venue'         => $promo->venue,
+                    'radius'        => $promo->radius. '.00',
+                    'created_at'    => $promo->created_at,
+                    'updated_at'    => $promo->updated_at,
+                    'expires_at'    => $promo->expires_at,
+                    'deleted_at'    => $promo->deleted_at,
+                ]
+            ]
+            ]
+        );
     }
 }
